@@ -20,7 +20,7 @@ the dual meaning / pun name "Lambda In Closure Act".
 
 ## Early Strategisation
 
-The game appeared to resemble [Go]:(https://en.wikipedia.org/wiki/Go\_(game))
+The game appeared to resemble Go (https://en.wikipedia.org/wiki/Go_(game))
 in a number of ways. While this was played on an arbitrary graph, and by
 claiming edges rather than the points (vertices) of the graph, there were
 some strong resemblances.
