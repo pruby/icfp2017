@@ -64,8 +64,8 @@ AI I wanted to build.
 This decision to use a less familiar language required me to do a lot of
 reading during the challenge. I had about a dozen tabs open at many times just
 with the Haskell standard libraries, trying to work out that a list it checked
-for emptiness with the "null" method, not the "empty" method. JSON parsing was
-new to me so all the IO took quite a while.
+for emptiness with the "null" method, not the "empty" method. JSON parsing in
+Haskell involved a lot of things new to me so all the IO took quite a while.
 
 As a result of being on my own, and the amount of work involved, it took me
 two days to get the program applying updates and reliably playing in the
