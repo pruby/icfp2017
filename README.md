@@ -65,11 +65,6 @@ with the Haskell standard libraries, trying to work out that a list it checked
 for emptiness with the "null" method, not the "empty" method. JSON parsing was
 new to me so all the IO took quite a while.
 
-I ended up doing a bit too much of this in the IO monad, losing some of the
-advantages of a functional programming language. This was mostly caused by
-wanting my strategy to be time-sensitive and stop with the best solution it
-could achieve in a given time.
-
 As a result of being on my own, and the amount of work involved, it took me
 two days to get the program applying updates and reliably playing in the
 online and offline modes before I could start implementing strategy.
@@ -112,31 +107,27 @@ I focussed on a reduction approach for my actual strategies, assuming that I
 could currently use all unclaimed rivers and valuing what losing any given
 river would cost.
 
-Each cut is valued based on the points gained by the mines on the left side
-connecting to the sites on the right, and the mines on the right connecting
-to the sites on the left. As I'll note later, there was however a critical
-bug here.
-
 The first actual strategy I implemented was to detect when parts of the graph
 are about to get cut off - when they're connected only by a single available
 river (called a "bridge" in graph theory). Unfortunately, despite the otherwise
 fantastic algorithms available in Haskell's fgl library, whole-graph bridge
 finding seemed to be missing. I therefore had to implement this to use this
-approach.
+approach. The simplest linear bridge-finding algorithm I could find was
+Jens Schmidt's chain decomposition technique [1].
 
-The simplest linear bridge-finding algorithm I could find was
-Jens Schmidt's chain decomposition technique [1]. Being stateful, this wasn't
-the best fit for a functional language, but with a bit of delving in to the
-mysteries of the State monad it came together. Once I worked out the little
-details, which took half of the third day, this could reliably detect when
-only one link was left. This works ok in small games with few opponents,
-but wouldn't work at scale as you'd only see a small % of bridges before
-someone else took them.
+Each bridge is valued as if I were about to lose that link, based on the points
+gained by the mines on each side connecting to the consuming sites on the other.
+As I'll note later, there was however a critical bug here.
 
-The next step was to generalise this concept of finding bottlenecks. This is
+This took about half a day
+to get working and works ok in small games with few opponents, but wouldn't
+work at scale as you'd only see a small % of bridges before someone else took them.
+This required a more general concept of finding bottlenecks. This is
 too expensive to do universally, so the planner performs multiple rounds of
 selecting two random mines and finding the smallest number of unclaimed
-edges that could be removed to cut the two off from each other. This uses
+edges that could be removed to cut the two off from each other.
+
+This uses
 the maximum flow algorithm in FGL to find which rivers are saturated and
 therefore where the minimum cut occurs. It focuses on connecting mines as
 this seemed to be the key to high scores.
