@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "Statically linked executable included"
+echo "Recompilation should not be necessary unless glibc version changes"
+
