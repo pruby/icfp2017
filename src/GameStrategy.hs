@@ -123,7 +123,7 @@ applyStrategyStep startTime state step Nothing = do
      then return Nothing
      else step startTime state
   
-strategies = [selectBridges, randomChokePoint, randomChokePoint, randomChokePoint]
+strategies = [selectBridges] ++ (replicate 16 randomChokePoint)
 
 chooseNextMoveIO :: UTCTime -> GameState -> IO MoveChoice
 chooseNextMoveIO startTime state = do
