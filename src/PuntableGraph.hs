@@ -109,7 +109,7 @@ findBridges pg = concatMap findSectionBridges sections
 splitOnBridge :: PuntableGraph -> (Site, Site) -> ([Site], [Site])
 splitOnBridge (PuntableGraph g) bridge@(a, b) = (aside, bside)
   where
-    withoutBridge = delEdge bridge g
+    withoutBridge = delEdges [bridge, swap bridge] g
     aside = reachable a withoutBridge
     bside = reachable b withoutBridge
 
@@ -117,7 +117,7 @@ splitOnCut :: PuntableGraph -> [(Site, Site)] -> ([Site], [Site])
 splitOnCut (PuntableGraph g) bridges = if null bridges then ([], []) else (aside, bside)
   where
     (a,b) = head bridges
-    withoutBridge = delEdges bridges g
+    withoutBridge = delEdges (map swap bridges) (delEdges bridges g)
     aside = reachable a withoutBridge
     bside = reachable b withoutBridge
 
