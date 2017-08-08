@@ -2,6 +2,8 @@
 
 This is my solution to the ICFP 2017 "Punting" challenge. It didn't go
 fantastically well in terms of time, but I had fun and learned plenty.
+I've published it here for reference, but don't expect it to be anything
+other than a bundle of technical debt.
 
 This year I solved this alone again. I should probably have been more
 proactive finding team mates but planned everything fairly late and
